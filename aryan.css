@@ -74,8 +74,10 @@ header{
 }
 
 .nav2 .nav2-center h1{
-    color: var(--primary);
+    color: #800000;  
     font-size: 2rem;
+    color:#800000;
+    font-family:serif;
     letter-spacing: 5px;
     font-weight: bold;
 }
