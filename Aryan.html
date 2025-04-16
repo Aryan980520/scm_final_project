@@ -14,6 +14,10 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Akaya+Kanadaka&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+<link
+  rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"
+/>
 </head>
 <body>
     <header>
@@ -275,5 +279,63 @@
 
       
  <!-- popular product end-->
+        <section class="trends">
+            <div class="product-intro">
+                <h1>top  <span>Trends  </span></h1>
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing eli nedhkih. </p>
+            </div>
+            <div class="swiper mySwiper">
+                <div class="swiper-wrapper">
+                  <div class="swiper-slide">
+                    <img src="img/headphone1.png" />
+                  </div>
+                  <div class="swiper-slide">
+                    <img src="img/headphone2.png" />
+                  </div>
+                  <div class="swiper-slide">
+                    <img src="img/headphone3.png" />
+                  </div>
+                  <div class="swiper-slide">
+                    <img src="img/headphone1.png" />
+                  </div>
+                  <div class="swiper-pagination"></div>
+  </div>
+        </section>
+
+        <footer>
+            <div>
+                <h1>Apni <span>Dukan</span></h1><br>
+                <p> Everything for Kids World</p>
+            </div>
+            <div>
+                <i class="fa fa-facebook"></i>
+                <i class="fa fa-instgram"></i>
+                <i class="fa fa-whatsapp"></i>
+                <i class="fa fa-X"></i>
+                <p> <br>Design by Abhinav</p>
+            </div>
+            <div>
+                @2025 Copyright all Rights Reserved
+            </div>
+        </footer>
+        <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+        <script>
+            var swiper = new Swiper(".mySwiper", {
+              effect: "coverflow",
+              grabCursor: true,
+              centeredSlides: true,
+              slidesPerView: "auto",
+              coverflowEffect: {
+                rotate: 50,
+                stretch: 0,
+                depth: 1200,
+                modifier: 1,
+                slideShadows: false ,
+              },
+              pagination: {
+                el: ".swiper-pagination",
+              },
+            });
+          </script>
 </body>
 </html>
