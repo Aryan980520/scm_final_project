@@ -21,6 +21,8 @@ header{
     justify-content: space-around;
     align-items: center;
     flex-wrap: wrap;
+    box-shadow: 2px 0px 3px grey;
+    text-align: center;
 
 }
 
@@ -285,4 +287,128 @@ font-size: 1rem;
 }
 footer i{
     margin: 0px 5px;
+}
+
+@media only screen and (max-width: 769px){
+    .nav1{
+        position: relative;
+        z-index: 2;
+        background-color: white;
+
+    }
+.right i{
+    font-size: 15px;
+    margin: 0px 5px  ;
+}
+.nav2{
+    width: 100%;
+    height: 80px;
+    
+}
+.nav2 .nav2-left i{
+    margin-left: 0px;
+}
+
+.nav2 .nav2-center h1{
+      
+    font-size: 1.5rem;
+    color:#800000;
+    font-family:serif;
+    letter-spacing: 2px;
+    
+}
+
+
+.nav2 .nav2-right i{
+    margin: 0px 5px;
+}
+.nav3{
+    display: none;
+}
+.featured{
+    background-attachment: fixed;
+}
+.latest{
+    padding: 00px 50px;   /*top bootm  and  left right*/
+}
+
+.product-intro{
+    text-align: center;
+}
+
+.product-intro h1{
+    color: var(--primary);
+    letter-spacing: 0.2rem;
+    font-size: 2rem;
+    font-weight: bolder;
+}
+
+.product-intro h1 span{
+    color: var(--secondary);
+}
+
+.product-intro p {
+    color: gray;
+    margin: 15px 0px;       /*top bootm  and  left right*/
+}
+
+.card-container{
+    margin: 2rem 0;
+}
+
+.card-container .card{
+    flex-basis: 100% ;
+    padding: 0.8rem;
+    position: relative;
+    text-align: center;
+}
+
+.card img{
+    width: 100%;
+    transition: 0.5s ease-in-out ;
+}
+
+.card i{
+    color: gold;
+    margin: 5px 0px;
+}
+
+.card button{
+    color: whitesmoke;
+    background-color: var(--secondary);
+    border: none;
+    outline: none;
+    margin-top: 5px;
+    padding: 5px 20px;
+}
+.trends{
+    padding: 20px 50px;
+    background-color:  rgba(0,0,0,0.01);
+}
+.trends .swiper-container{
+    width: 100%;
+    padding: 50px;
+}
+.trends .swiper {
+    width: 100%;
+    padding-top: 50px;
+    padding-bottom: 50px;
+  }
+
+  .trends .swiper-slide {
+    background-position: center;
+    background-size: cover;
+    width: 360px;
+    height: 360px;
+  }
+
+  .trends .swiper-slide img {
+    display: block;
+    width: 100%;
+    height: 100%;
+  }
+  footer div{
+    flex-basis: 50%;
+    margin: 10px 0;
+  }
 }
