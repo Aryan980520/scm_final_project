@@ -21,7 +21,6 @@ header{
     justify-content: space-around;
     align-items: center;
     flex-wrap: wrap;
-    box-shadow: 2px 0px 3px grey;
     text-align: center;
 
 }
@@ -412,3 +411,5 @@ footer i{
     margin: 10px 0;
   }
 }
+
+
