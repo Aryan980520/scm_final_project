@@ -4,10 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>LocalVastra - Login</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <style>
         * {
             box-sizing: border-box;
             font-family: 'Arial', sans-serif;
+            transition: background-color 0.3s, color 0.3s;
         }
         
         body {
@@ -20,8 +22,6 @@
             height: 100vh;
         }
         
-
-        
         .login-container {
             background-color: white;
             border-radius: 8px;
@@ -29,6 +29,7 @@
             padding: 30px;
             width: 350px;
             text-align: center;
+            position: relative;
         }
         
         .logo {
@@ -102,10 +103,104 @@
             margin-bottom: 15px;
             display: none;
         }
+        
+        /* Theme Toggle Styles */
+        .theme-toggle {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+        }
+        
+        .theme-switch {
+            display: none;
+        }
+        
+        .theme-label {
+            display: block;
+            width: 50px;
+            height: 24px;
+            background-color: #6d4c41;
+            border-radius: 50px;
+            position: relative;
+            cursor: pointer;
+        }
+        
+        .theme-ball {
+            position: absolute;
+            top: 2px;
+            left: 2px;
+            width: 20px;
+            height: 20px;
+            background-color: white;
+            border-radius: 50%;
+            transition: transform 0.3s ease;
+        }
+        
+        .sun-icon, .moon-icon {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            color: white;
+            font-size: 14px;
+        }
+        
+        .sun-icon {
+            left: 6px;
+        }
+        
+        .moon-icon {
+            right: 6px;
+        }
+        
+        .theme-switch:checked + .theme-label .theme-ball {
+            transform: translateX(26px);
+        }
+        
+        /* Dark Mode Styles */
+        body.dark-mode {
+            background-color: #121212;
+            color: #f5f5f5;
+        }
+        
+        .dark-mode .login-container {
+            background-color: #2d2d2d;
+            color: #f5f5f5;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+        }
+        
+        .dark-mode .login-form input {
+            background-color: #3d3d3d;
+            border-color: #444;
+            color: #f5f5f5;
+        }
+        
+        .dark-mode .forgot-password,
+        .dark-mode .signup-link,
+        .dark-mode .home-link a {
+            color: #bbb;
+        }
+        
+        .dark-mode .forgot-password:hover {
+            color: #4a6baf;
+        }
+        
+        .dark-mode .logo {
+            color: #6d9eeb;
+        }
     </style>
 </head>
 <body>
     <div class="login-container">
+        <!-- Theme Toggle -->
+        <div class="theme-toggle">
+            <input type="checkbox" id="theme-switch" class="theme-switch">
+            <label for="theme-switch" class="theme-label">
+                <i class="fa fa-sun-o sun-icon"></i>
+                <i class="fa fa-moon-o moon-icon"></i>
+                <span class="theme-ball"></span>
+            </label>
+        </div>
+        
         <div class="logo">LocalVastra</div>
         <p>Login to your account</p>
         
@@ -130,46 +225,49 @@
     </div>
 
     <script>
-        document.getElementById('loginForm').addEventListener('submit', function(e) {
-            e.preventDefault();
+        // Theme Toggle Functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            const themeSwitch = document.getElementById('theme-switch');
+            const body = document.body;
             
-            // Get input values
-            const email = document.getElementById('email').value;
-            const password = document.getElementById('password').value;
-            const errorMessage = document.getElementById('errorMessage');
-            
-            // Simple validation (in a real app, you would check against a database)
-            if (email === 'user@localvastra.com' && password === 'password123') {
-                // Successful login
-                errorMessage.style.display = 'none';
-                window.location.href = 'dashboard.html';
-            } else {
-                // Failed login
-                errorMessage.style.display = 'block';
+            // Check for saved theme preference
+            if (localStorage.getItem('theme') === 'dark') {
+                body.classList.add('dark-mode');
+                themeSwitch.checked = true;
             }
+            
+            // Theme switch event
+            themeSwitch.addEventListener('change', function() {
+                if (this.checked) {
+                    body.classList.add('dark-mode');
+                    localStorage.setItem('theme', 'dark');
+                } else {
+                    body.classList.remove('dark-mode');
+                    localStorage.setItem('theme', 'light');
+                }
+            });
+            
+            // Login form handling
+            document.getElementById('loginForm').addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                const email = document.getElementById('email').value;
+                const password = document.getElementById('password').value;
+                const errorMessage = document.getElementById('errorMessage');
+                
+                if (email === 'user@localvastra.com' && password === 'chitkarauni') {
+                    window.location.href = 'dashboard.html';
+                } else {
+                    errorMessage.style.display = 'block';
+                }
+            });
+            
+            // Forgot password link
+            document.querySelector('.forgot-password').addEventListener('click', function(e) {
+                e.preventDefault();
+                alert('Password reset link will be sent to your email.');
+            });
         });
-        
-        // Forgot password link
-        document.querySelector('.forgot-password').addEventListener('click', function(e) {
-            e.preventDefault();
-            alert('Password reset link will be sent to your email.');
-        });
-        document.getElementById('loginForm').addEventListener('submit', function(e) {
-    e.preventDefault();
-    
-    const email = document.getElementById('email').value;
-    const password = document.getElementById('password').value;
-    const errorMessage = document.getElementById('errorMessage');
-    
-    if (email === 'user@localvastra.com' && password === 'chitkarauni') {
-        // Redirect to dashboard after successful login
-        window.location.href = 'dashboard.html';
-    } else {
-        errorMessage.style.display = 'block';
-    }
-});
     </script>
-    <script src="js/main.js"></script>
-    <script src="js/theme.js"></script>
 </body>
 </html>

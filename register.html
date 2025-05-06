@@ -4,10 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>LocalVastra - Register</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <style>
         * {
             box-sizing: border-box;
             font-family: 'Arial', sans-serif;
+            transition: background-color 0.3s, color 0.3s;
         }
         
         body {
@@ -27,6 +29,7 @@
             padding: 30px;
             width: 350px;
             text-align: center;
+            position: relative;
         }
         
         .logo {
@@ -95,10 +98,103 @@
             margin-bottom: 15px;
             display: none;
         }
+        
+        /* Theme Toggle Styles */
+        .theme-toggle {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+        }
+        
+        .theme-switch {
+            display: none;
+        }
+        
+        .theme-label {
+            display: block;
+            width: 50px;
+            height: 24px;
+            background-color: #6d4c41;
+            border-radius: 50px;
+            position: relative;
+            cursor: pointer;
+        }
+        
+        .theme-ball {
+            position: absolute;
+            top: 2px;
+            left: 2px;
+            width: 20px;
+            height: 20px;
+            background-color: white;
+            border-radius: 50%;
+            transition: transform 0.3s ease;
+        }
+        
+        .sun-icon, .moon-icon {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            color: white;
+            font-size: 14px;
+        }
+        
+        .sun-icon {
+            left: 6px;
+        }
+        
+        .moon-icon {
+            right: 6px;
+        }
+        
+        .theme-switch:checked + .theme-label .theme-ball {
+            transform: translateX(26px);
+        }
+        
+        /* Dark Mode Styles */
+        body.dark-mode {
+            background-color: #121212;
+            color: #f5f5f5;
+        }
+        
+        .dark-mode .register-container {
+            background-color: #2d2d2d;
+            color: #f5f5f5;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+        }
+        
+        .dark-mode .register-form input {
+            background-color: #3d3d3d;
+            border-color: #444;
+            color: #f5f5f5;
+        }
+        
+        .dark-mode .login-link,
+        .dark-mode .home-link a {
+            color: #bbb;
+        }
+        
+        .dark-mode .login-link a {
+            color: #6d9eeb;
+        }
+        
+        .dark-mode .logo {
+            color: #6d9eeb;
+        }
     </style>
 </head>
 <body>
     <div class="register-container">
+        <!-- Theme Toggle -->
+        <div class="theme-toggle">
+            <input type="checkbox" id="theme-switch" class="theme-switch">
+            <label for="theme-switch" class="theme-label">
+                <i class="fa fa-sun-o sun-icon"></i>
+                <i class="fa fa-moon-o moon-icon"></i>
+                <span class="theme-ball"></span>
+            </label>
+        </div>
+        
         <div class="logo">LocalVastra</div>
         <p>Create your account</p>
         
@@ -129,76 +225,98 @@
     </div>
 
     <script>
-        document.getElementById('registerForm').addEventListener('submit', function(e) {
-            e.preventDefault();
+        // Theme Toggle Functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            const themeSwitch = document.getElementById('theme-switch');
+            const body = document.body;
             
-            // Get input values
-            const name = document.getElementById('name').value;
-            const email = document.getElementById('email').value;
-            const phone = document.getElementById('phone').value;
-            const password = document.getElementById('password').value;
-            const confirmPassword = document.getElementById('confirmPassword').value;
-            
-            const errorMessage = document.getElementById('errorMessage');
-            const successMessage = document.getElementById('successMessage');
-            
-            // Hide messages
-            errorMessage.style.display = 'none';
-            successMessage.style.display = 'none';
-            
-            // Validation
-            if (!name || !email || !phone || !password || !confirmPassword) {
-                errorMessage.textContent = 'All fields are required';
-                errorMessage.style.display = 'block';
-                return;
+            // Check for saved theme preference
+            if (localStorage.getItem('theme') === 'dark') {
+                body.classList.add('dark-mode');
+                if (themeSwitch) themeSwitch.checked = true;
             }
             
-            if (password !== confirmPassword) {
-                errorMessage.textContent = 'Passwords do not match';
-                errorMessage.style.display = 'block';
-                return;
+            // Theme switch event
+            if (themeSwitch) {
+                themeSwitch.addEventListener('change', function() {
+                    if (this.checked) {
+                        body.classList.add('dark-mode');
+                        localStorage.setItem('theme', 'dark');
+                    } else {
+                        body.classList.remove('dark-mode');
+                        localStorage.setItem('theme', 'light');
+                    }
+                });
             }
             
-            if (password.length < 6) {
-                errorMessage.textContent = 'Password must be at least 6 characters';
-                errorMessage.style.display = 'block';
-                return;
-            }
-            
-            // In a real app, you would send this data to your backend
-            // For demo purposes, we'll store in localStorage
-            
-            // Check if user already exists
-            const users = JSON.parse(localStorage.getItem('localvastra_users') || '[]');
-            const userExists = users.some(user => user.email === email);
-            
-            if (userExists) {
-                errorMessage.textContent = 'Email already registered';
-                errorMessage.style.display = 'block';
-                return;
-            }
-            
-            // Create new user
-            const newUser = {
-                name,
-                email,
-                phone,
-                password, // Note: In real app, password should be hashed
-                createdAt: new Date().toISOString()
-            };
-            
-            users.push(newUser);
-            localStorage.setItem('localvastra_users', JSON.stringify(users));
-            
-            // Show success message
-            successMessage.style.display = 'block';
-            
-            // Redirect to login after 2 seconds
-            setTimeout(() => {
-                window.location.href = 'login.html';
-            }, 2000);
+            // Registration form handling
+            document.getElementById('registerForm').addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                // Get input values
+                const name = document.getElementById('name').value;
+                const email = document.getElementById('email').value;
+                const phone = document.getElementById('phone').value;
+                const password = document.getElementById('password').value;
+                const confirmPassword = document.getElementById('confirmPassword').value;
+                
+                const errorMessage = document.getElementById('errorMessage');
+                const successMessage = document.getElementById('successMessage');
+                
+                // Hide messages
+                errorMessage.style.display = 'none';
+                successMessage.style.display = 'none';
+                
+                // Validation
+                if (!name || !email || !phone || !password || !confirmPassword) {
+                    errorMessage.textContent = 'All fields are required';
+                    errorMessage.style.display = 'block';
+                    return;
+                }
+                
+                if (password !== confirmPassword) {
+                    errorMessage.textContent = 'Passwords do not match';
+                    errorMessage.style.display = 'block';
+                    return;
+                }
+                
+                if (password.length < 6) {
+                    errorMessage.textContent = 'Password must be at least 6 characters';
+                    errorMessage.style.display = 'block';
+                    return;
+                }
+                
+                // Check if user already exists
+                const users = JSON.parse(localStorage.getItem('localvastra_users') || '[]');
+                const userExists = users.some(user => user.email === email);
+                
+                if (userExists) {
+                    errorMessage.textContent = 'Email already registered';
+                    errorMessage.style.display = 'block';
+                    return;
+                }
+                
+                // Create new user
+                const newUser = {
+                    name,
+                    email,
+                    phone,
+                    password, // Note: In real app, password should be hashed
+                    createdAt: new Date().toISOString()
+                };
+                
+                users.push(newUser);
+                localStorage.setItem('localvastra_users', JSON.stringify(users));
+                
+                // Show success message
+                successMessage.style.display = 'block';
+                
+                // Redirect to login after 2 seconds
+                setTimeout(() => {
+                    window.location.href = 'login.html';
+                }, 2000);
+            });
         });
     </script>
-    <script src="js/theme.js"></script>
 </body>
 </html>

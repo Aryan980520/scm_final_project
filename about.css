@@ -1,5 +1,80 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@300;400;500;600&display=swap');
-
+/* Dark/Light Mode Toggle Styles */
+.theme-toggle {
+    position: relative;
+    display: inline-block;
+    margin-right: 20px;
+    }
+    
+    .theme-switch {
+    display: none;
+    }
+    
+    .theme-label {
+    display: block;
+    width: 50px;
+    height: 24px;
+    background-color: #6d4c41;
+    border-radius: 50px;
+    position: relative;
+    cursor: pointer;
+    }
+    
+    .theme-ball {
+    position: absolute;
+    top: 2px;
+    left: 2px;
+    width: 20px;
+    height: 20px;
+    background-color: white;
+    border-radius: 50%;
+    transition: transform 0.3s ease;
+    }
+    
+    .sun-icon, .moon-icon {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    color: white;
+    font-size: 14px;
+    }
+    
+    .sun-icon {
+    left: 6px;
+    }
+    
+    .moon-icon {
+    right: 6px;
+    }
+    
+    .theme-switch:checked + .theme-label .theme-ball {
+    transform: translateX(26px);
+    }
+    
+    /* Dark Mode Styles - Include these in all pages */
+    body.dark-mode {
+    background-color: #121212;
+    color: #f5f5f5;
+    }
+    
+    .dark-mode header {
+    background-color: #1e1e1e;
+    }
+    
+    .dark-mode .nav-links a {
+    color: #f5f5f5;
+    }
+    
+    .dark-mode .card {
+    background-color: #2d2d2d;
+    color: #f5f5f5;
+    }
+    
+    .dark-mode footer {
+    background-color: #1e1e1e;
+    color: #f5f5f5;
+    }
+    
 *{
     margin:0;
     padding:0;
