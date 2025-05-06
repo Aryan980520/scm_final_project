@@ -369,6 +369,28 @@
           <script src="script.js"></script>
           <script src="js/main.js"></script>
           <script src="Toys.html"></script>
+          <script>
+            // Dark/Light Mode Toggle
+            const themeSwitch = document.getElementById('theme-switch');
+            const body = document.body;
+            
+            // Check for saved theme preference
+            if (localStorage.getItem('theme') === 'dark') {
+              body.classList.add('dark-mode');
+              themeSwitch.checked = true;
+            }
+            
+            // Theme switch event
+            themeSwitch.addEventListener('change', function() {
+              if (this.checked) {
+                body.classList.add('dark-mode');
+                localStorage.setItem('theme', 'dark');
+              } else {
+                body.classList.remove('dark-mode');
+                localStorage.setItem('theme', 'light');
+              }
+            });
+          </script>
 </body>
 </html>
 
