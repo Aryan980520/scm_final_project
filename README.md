@@ -20,7 +20,7 @@ This project is a simple and responsive **E-Commerce Website** built using **HTM
 
 - **HTML5** – For building the webpage structure
 - **CSS3** – For styling and layout design
-- **Java** – For backend functionalities (servlets, data handling, etc.)
+- **JavaScript** – For backend functionalities (servlets, data handling, etc.)
 
 ---
 
